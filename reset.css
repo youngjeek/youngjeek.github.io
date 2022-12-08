@@ -1,13 +1,8 @@
-import styled from 'styled-components';
-import React, { useState } from 'react';
-import Router from './Router';
-import { createGlobalStyle } from 'styled-components';
-const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
-<style> @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap'); </style>
+
 html,
 body,
 div,
@@ -132,26 +127,3 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-*{
-  box-sizing:border-box;
-}
-body{
-  font-family:Ubuntu:wght@300;400;
-  background-color:${(props) => props.theme.backgroundColor};
-  color:${(props) => props.theme.textColor};
-}
-a{
-  text-decoration:none;
-  color:inherit;
-}
-`;
-
-function App() {
-  return (
-    <>
-      <GlobalStyle />
-      <Router />
-    </>
-  );
-}
-export default App;
