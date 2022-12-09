@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/ecommerce/static/js/main.ddb28280.js",
+    "index.html": "/ecommerce/index.html",
+    "main.ddb28280.js.map": "/ecommerce/static/js/main.ddb28280.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ddb28280.js"
+  ]
+}
