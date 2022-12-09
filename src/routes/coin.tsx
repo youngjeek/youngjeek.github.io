@@ -14,9 +14,7 @@ import Price from './Price';
 import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from './api';
 // interface//
-interface RouteParams {
-  coinId: string;
-}
+
 interface IInfoData {
   id: string;
   name: string;
@@ -75,6 +73,10 @@ interface IPriceData {
 interface RouteState {
   name: string;
 }
+interface RouteParams {
+  coinId: string;
+}
+
 //Style Components
 const Container = styled.div`
   padding: 0px 20px;
@@ -153,6 +155,7 @@ function Coin() {
     () => fetchCoinTickers(coinId),
     { refetchInterval: 50000000 }
   );
+
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<IInfoData>();
   // const [priceInfo, setPriceInfo] = useState<IPriceData>();
@@ -228,7 +231,7 @@ function Coin() {
             </Tabs>
             <Switch>
               <Route path={`/${coinId}/price`}>
-                <Price />
+                <Price coinId={coinId} />
               </Route>
             </Switch>
             <Switch>
