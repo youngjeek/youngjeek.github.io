@@ -5,6 +5,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
 import { ThemeProvider } from 'styled-components';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { isDarkAtom } from './atoms';
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -52,13 +54,14 @@ a{
 `;
 const Button = styled.button``;
 function App() {
-  const [modeState, setModeState] = useState(false);
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-      <ThemeProvider theme={modeState ? lightTheme : darkTheme}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Button onClick={() => setModeState((prev) => !prev)}>
-          {modeState ? 'Dark Mode' : 'Light mode'}
+        <Button onClick={() => setDarkAtom((prev) => !prev)}>
+          {isDark ? 'Dark Mode' : 'Light mode'}
         </Button>
         <Router />
       </ThemeProvider>
