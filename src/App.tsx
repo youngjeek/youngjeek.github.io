@@ -1,12 +1,5 @@
-import Router from './Router';
 import { createGlobalStyle } from 'styled-components';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { darkTheme, lightTheme } from './theme';
-import { ThemeProvider } from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isDarkAtom } from './atoms';
+import ToDoList from './ToDoList';
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -52,20 +45,11 @@ a{
   color:inherit;
 }
 `;
-const Button = styled.button``;
 function App() {
-  const setDarkAtom = useSetRecoilState(isDarkAtom);
-  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <Button onClick={() => setDarkAtom((prev) => !prev)}>
-          {isDark ? 'Dark Mode' : 'Light mode'}
-        </Button>
-        <Router />
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <GlobalStyle />
+      <ToDoList />
     </>
   );
 }
