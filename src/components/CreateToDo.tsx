@@ -21,7 +21,10 @@ function CreateToDo() {
   const onSubmit = ({ customCategory, toDo }: IForm) => {
     if (customCategory) {
       setCategory((prev) => {
-        return { ...prev, [customCategory]: [] };
+        return {
+          ...prev,
+          [customCategory]: [],
+        };
       });
       setToDos((oldToDo) => [
         { text: toDo, id: Date.now(), category: customCategory },
