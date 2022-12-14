@@ -70,7 +70,7 @@ function Price({ coinId }: IPriceProps) {
   );
   const priceDetail = data?.quotes.USD;
   function plusminus(num: number) {
-    return num > 0 ? `+${num}` : `-${num}`;
+    return num > 0 ? `${num}` : `-${num}`;
   }
   return (
     <>
