@@ -1,9 +1,6 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-<<<<<<< HEAD
 import styled from 'styled-components';
-=======
->>>>>>> c51757daf963f7ecf15f3fe4d3bb5917658044d9
 
 export enum Categories {
   'NOT_YET' = 'NOT_YET',
@@ -41,26 +38,17 @@ export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({ get }) => {
     const toDos = get(toDoState);
-<<<<<<< HEAD
     const newCategory = get(categoryList);
-=======
-    const category = get(categoryList);
->>>>>>> c51757daf963f7ecf15f3fe4d3bb5917658044d9
     return [
       toDos.filter((toDo) => toDo.category === Categories.NOT_YET),
       toDos.filter((toDo) => toDo.category === Categories.ACTIVE),
       toDos.filter((toDo) => toDo.category === Categories.DONE),
       toDos.filter((toDo) =>
-<<<<<<< HEAD
         Object.keys(newCategory).includes(toDo.category as string)
-=======
-        Object.keys(category).includes(toDo.category as string)
->>>>>>> c51757daf963f7ecf15f3fe4d3bb5917658044d9
       ),
     ];
   },
 });
-<<<<<<< HEAD
 
 export const Button = styled.button`
   color: black;
@@ -94,6 +82,3 @@ export const Tab = styled.div<{ isActive?: boolean }>`
 export const Div2 = styled(Div)`
   grid-template-columns: repeat(1, 2fr);
 `;
-=======
-// (toDo) => Object.keys(categoryList).includes('ㅁㅁ')
->>>>>>> c51757daf963f7ecf15f3fe4d3bb5917658044d9
