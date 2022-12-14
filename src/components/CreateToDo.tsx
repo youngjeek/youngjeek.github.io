@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { categoryList, categoryState, toDoState } from './atoms';
+import { Button, categoryList, categoryState, toDoState } from './atoms';
 
 //interface
 interface IForm {
@@ -18,20 +18,15 @@ function CreateToDo() {
     setValue,
     formState: { errors },
   } = useForm<IForm>();
-
   const onSubmit = ({ customCategory, toDo }: IForm) => {
     if (customCategory) {
       setCategory((prev) => {
-        return {
-          ...prev,
-          [customCategory]: [],
-        };
+        return { ...prev, [customCategory]: [] };
       });
       setToDos((oldToDo) => [
         { text: toDo, id: Date.now(), category: customCategory },
         ...oldToDo,
       ]);
-      console.log(categoryList);
     } else {
       setToDos((oldToDo) => [
         { text: toDo, id: Date.now(), category },
@@ -56,7 +51,7 @@ function CreateToDo() {
           {...register('toDo', { required: 'Please write a To-do' })}
           placeholder="Write To-do"
         />
-        <button>Add</button>
+        <Button>Add</Button>
         <span>{errors?.toDo?.message}</span>
       </form>
     </>

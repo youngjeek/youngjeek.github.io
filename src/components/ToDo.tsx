@@ -1,10 +1,11 @@
 import React from 'react';
-import { IToDo, toDoState, Categories, categoryList } from './atoms';
+import { IToDo, toDoState, Categories, categoryList, Button } from './atoms';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
   const customCategory = useRecoilValue(categoryList);
+  const newCategory = Object.keys(customCategory);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -25,25 +26,25 @@ function ToDo({ text, category, id }: IToDo) {
     <li>
       <span>{text}</span>
       {category !== Categories.NOT_YET && (
-        <button name={Categories.NOT_YET + ''} onClick={onClick}>
+        <Button name={Categories.NOT_YET + ''} onClick={onClick}>
           Not yet
-        </button>
+        </Button>
       )}
       {category !== Categories.ACTIVE && (
-        <button name={Categories.ACTIVE + ''} onClick={onClick}>
+        <Button name={Categories.ACTIVE + ''} onClick={onClick}>
           Active
-        </button>
+        </Button>
       )}
       {category !== Categories.DONE && (
-        <button name={Categories.DONE + ''} onClick={onClick}>
+        <Button name={Categories.DONE + ''} onClick={onClick}>
           Done
-        </button>
+        </Button>
       )}
-      {category !== Object.keys(customCategory) &&
+      {category !== newCategory &&
         Object.keys(customCategory).map((newOpt) => (
-          <button name={newOpt} onClick={onClick}>
+          <Button name={newOpt} onClick={onClick}>
             {newOpt}
-          </button>
+          </Button>
         ))}
     </li>
   );

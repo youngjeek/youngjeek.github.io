@@ -1,25 +1,26 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import styled from 'styled-components';
-import { categoryList, categoryState, toDoSelector, toDoState } from './atoms';
+import {
+  Button,
+  categoryList,
+  categoryState,
+  Div,
+  Div2,
+  Tab,
+  toDoSelector,
+  toDoState,
+} from './atoms';
 import CreateToDo from './CreateToDo';
 import ToDo from './ToDo';
-
-const Div = styled.div``;
 
 function ToDoList() {
   const toDo = useRecoilValue(toDoState);
   const customCategory = useRecoilValue(categoryList);
-  const [toDos, doing, done, custom] = useRecoilValue(toDoSelector);
+  const [toDos, doing, done, others] = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
   const onInput = (event: React.FormEvent<HTMLSelectElement>) =>
     setCategory(event.currentTarget.value as any);
   console.log(toDo);
-  function onClick(newCategory: string) {
-    return toDo
-      .filter((toDo) => toDo.category === newCategory)
-      .map((toDoo) => <ToDo key={toDoo.id} {...toDoo} />);
-  }
 
   return (
     <div>
@@ -35,49 +36,48 @@ function ToDoList() {
         ))}
       </select>
       <CreateToDo />
-      <div>
-        <h2>To-do</h2>
-        <ul>
-          {toDos.map((toDoo) => (
-            <ToDo key={toDoo.id} {...toDoo} />
-          ))}
-        </ul>
-        <hr />
-      </div>
-      <div>
-        <h2>in Progress</h2>
-        <ul>
-          {doing.map((toDoo) => (
-            <ToDo key={toDoo.id} {...toDoo} />
-          ))}
-        </ul>
-        <hr />
-      </div>
-      <div>
-        <h2>Done</h2>
-        <ul>
-          {done.map((toDoo) => (
-            <ToDo key={toDoo.id} {...toDoo} />
-          ))}
-        </ul>
-        <hr />
-      </div>
-      <div>
-        <h2>Custom</h2>
-        <ul>
-          {Object.keys(customCategory).map((toDoo) => (
-            <button key={toDoo} onClick={() => onClick(toDoo)}>
-              {toDoo}
-            </button>
-          ))}
-        </ul>
-        <ul>
-          {custom.map((toDoo) => (
-            <ToDo key={toDoo.id} {...toDoo} />
-          ))}
-        </ul>
-        <hr />
-      </div>
+      <Div>
+        <Tab>
+          <h2>To-do</h2>
+          <ul>
+            {toDos.map((toDoo) => (
+              <ToDo key={toDoo.id} {...toDoo} />
+            ))}
+          </ul>
+        </Tab>
+        <Tab>
+          <h2>in Progress</h2>
+          <ul>
+            {doing.map((toDoo) => (
+              <ToDo key={toDoo.id} {...toDoo} />
+            ))}
+          </ul>
+        </Tab>
+        <Tab>
+          <h2>Done</h2>
+          <ul>
+            {done.map((toDo) => (
+              <ToDo key={toDo.id} {...toDo} />
+            ))}
+          </ul>
+        </Tab>
+      </Div>
+      <Div2>
+        {Object.keys(customCategory).map((newOpt) => (
+          <>
+            <Tab>
+              <h2>{newOpt}</h2>
+              <ul>
+                {others.map((toDo) =>
+                  newOpt === toDo.category ? (
+                    <ToDo key={toDo.id} {...toDo} />
+                  ) : null
+                )}
+              </ul>
+            </Tab>
+          </>
+        ))}
+      </Div2>
     </div>
   );
 }
