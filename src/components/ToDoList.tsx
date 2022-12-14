@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  Button,
   categoryList,
   categoryState,
   Div,

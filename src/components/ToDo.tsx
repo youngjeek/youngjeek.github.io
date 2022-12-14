@@ -49,5 +49,4 @@ function ToDo({ text, category, id }: IToDo) {
     </li>
   );
 }
-
 export default ToDo;
