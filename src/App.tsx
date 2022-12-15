@@ -1,72 +1,68 @@
-import Router from './Router';
-import { createGlobalStyle } from 'styled-components';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { darkTheme, lightTheme } from './theme';
-import { ThemeProvider } from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { isDarkAtom } from './atoms';
-const GlobalStyle = createGlobalStyle`
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-<style> @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap'); </style>
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,
-del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,
-label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,
-header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,
-video {  margin: 0;  padding: 0;  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,
-section {  display: block;}
-body {  line-height: 1;}
-ol,ul {  list-style: none;}
-blockquote,
-q {  quotes: none;}
-blockquote:before,blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-*{
-  box-sizing:border-box;
-}
-body{
-  font-family:Ubuntu:wght@300;400;
-  background-color:${(props) => props.theme.backgroundColor};
-  color:${(props) => props.theme.textColor};
-}
-a{
-  text-decoration:none;
-  color:inherit;
-}
+import { motion } from 'framer-motion';
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
-const Button = styled.button``;
+
+const Box = styled(motion.div)`
+  width: 200px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+const Circle = styled(motion.div)`
+  width: 80px;
+  height: 80px;
+  place-self: center;
+  background-color: white;
+  border-radius: 100px;
+`;
+const boxVariants = {
+  start: { opacity: 0, scale: 0.5 },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      duration: 3,
+      bounce: 0.5,
+      delayChildren: 0.3,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const circleVariants = {
+  start: {
+    opacity: 0,
+    y: 15,
+  },
+  end: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1 },
+  },
+};
 function App() {
-  const setDarkAtom = useSetRecoilState(isDarkAtom);
-  const isDark = useRecoilValue(isDarkAtom);
   return (
-    <>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <Button onClick={() => setDarkAtom((prev) => !prev)}>
-          {isDark ? 'Dark Mode' : 'Light mode'}
-        </Button>
-        <Router />
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
-    </>
+    <Wrapper>
+      {/* <Box variants={myVars} initial="start" animate="end" /> */}
+      <Box variants={boxVariants} initial="start" animate="end">
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+      </Box>
+      <motion.div></motion.div>
+    </Wrapper>
   );
 }
 export default App;
