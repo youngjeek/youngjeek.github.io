@@ -1,0 +1,69 @@
+import styled from 'styled-components';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Box = styled(motion.div)`
+  width: 100px;
+  height: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+const BiggerBox = styled.div`
+  width: 600px;
+  height: 600px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
+const boxVariants = {
+  start: { opacity: 0, scale: 0.5 },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      duration: 3,
+      bounce: 0.5,
+      delayChildren: 0.3,
+      staggerChildren: 0.1,
+    },
+  },
+};
+const gestureVa = {
+  hover: { scale: 1.5, rotateZ: 180 },
+  tab: { scale: 1, borderRadius: '100px' },
+  drag: { backgroundColor: 'rgba(255, 255, 255, 1)' },
+};
+
+function App() {
+  const x = useMotionValue(0);
+  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  const pop = useTransform(x, [-300, 0, 300], [0, 1, 0]);
+  return (
+    <Wrapper>
+      <button onClick={() => x.set(200)}>Click me!</button>
+      <BiggerBox ref={biggerBoxRef}>
+        <Box
+          style={{ x: x, scale: pop, opacity: pop }}
+          drag="x"
+          dragSnapToOrigin
+        ></Box>
+      </BiggerBox>
+    </Wrapper>
+  );
+}
+export default App;
